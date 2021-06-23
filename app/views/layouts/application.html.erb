@@ -26,13 +26,13 @@
               <li><%= link_to "Home", user_path(current_user), class: 'nav-link text-light'%> </li>
               <li><%= link_to "User", users_path, class: 'nav-link text-light'%></li>
               <li><%= link_to "Books", books_path, class: 'nav-link text-light'  %></li>
-              <li><%= link_to "Logout", destroy_user_session_path, class: 'nav-link text-light',method: :delete %></li>
+              <li><%= link_to "logout", destroy_user_session_path, class: 'nav-link text-light',method: :delete %></li>
 
               <% else %>
               <li><%= link_to "Home", root_path, class: 'nav-link text-light' %> </li>
               <li><%= link_to "About", homes_about_path, class: 'nav-link text-light' %></li>
-              <li><%= link_to "Sign up", new_user_registration_path, class: 'nav-link text-light' %></li>
-              <li><%= link_to "Login", new_user_session_path, class: 'nav-link text-light' %></li>
+              <li><%= link_to "sign up", new_user_registration_path, class: 'nav-link text-light' %></li>
+              <li><%= link_to "login", new_user_session_path, class: 'nav-link text-light' %></li>
               <% end %>
             </ul>
           </div>
