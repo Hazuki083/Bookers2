@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
    def index
        @user = current_user
+       @users = User.all
        @book = Book.new
        @books = Book.all
    end
@@ -20,6 +21,7 @@ class UsersController < ApplicationController
    end
 
    def update
+       @user =User.find(params[:id])
    end
 
  private

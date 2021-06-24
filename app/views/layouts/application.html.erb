@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
     <title>Bookers2</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -15,6 +16,7 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
+
           <span class="text-color">Bookers</span>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,10 +25,10 @@
             <ul class="navbar-nav ml-auto">
 
               <% if user_signed_in? %>
-              <li><%= link_to "Home", user_path(current_user), class: 'nav-link text-light'%> </li>
-              <li><%= link_to "User", users_path, class: 'nav-link text-light'%></li>
-              <li><%= link_to "Books", books_path, class: 'nav-link text-light'  %></li>
-              <li><%= link_to "logout", destroy_user_session_path, class: 'nav-link text-light',method: :delete %></li>
+              <%= link_to "Home", users_path(current_user), class: 'nav-link text-light'%>
+              <%= link_to "User", users_path, class: 'nav-link text-light' %>
+              <%= link_to "Books", books_path, class: 'nav-link text-light' %>
+              <%= link_to "logout", destroy_user_session_path, class: 'nav-link text-light',method: :delete %>
 
               <% else %>
               <li><%= link_to "Home", root_path, class: 'nav-link text-light' %> </li>

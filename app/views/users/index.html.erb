@@ -11,29 +11,27 @@
             <table class="table table-hover table-inverse">
              <thead>
                  <tr>
-                   <th></th>
                    <th>image</th>
                    <th>name</th>
                    <th colspan="3"></th>
                  </tr>
              </thead>
              <tbody>
-               <tr>
+               
                 <% @users.each do |user| %>
                   <tr>
                     <td>
                       <%= link_to user_path(user.id) do %>
                         <%= attachment_image_tag user, :profile_image, :fill, 50, 50,fallback: "no-image.jpg" %>
+                        
                       <% end %>
                     </td>
+                    <td><%= user.name %></td>
                     <td>
-                      <%= link_to book_path(book.id) do %>
-                        <%= book.title %>
-                      <% end %>
+                      <%= link_to "Show", user_path(user.id) %>
                     </td>
-                    <td><%= book.body %></td>
-                  </tr>
-              <% end %>
+                  
+                  <% end %>
             </tbody>
            </table>
         </div>
