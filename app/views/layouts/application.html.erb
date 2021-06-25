@@ -25,7 +25,7 @@
             <ul class="navbar-nav ml-auto">
 
               <% if user_signed_in? %>
-              <%= link_to "Home", users_path(current_user), class: 'nav-link text-light'%>
+              <%= link_to "Home", user_path(current_user), class: 'nav-link text-light'%>
               <%= link_to "User", users_path, class: 'nav-link text-light' %>
               <%= link_to "Books", books_path, class: 'nav-link text-light' %>
               <%= link_to "logout", destroy_user_session_path, class: 'nav-link text-light',method: :delete %>
