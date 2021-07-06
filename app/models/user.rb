@@ -23,6 +23,7 @@ class User < ApplicationRecord
  #  has_many :followed, class_name: "Relationship", foreign_key: :followed_id, dependent: :destroy
  #  has_many :followers, through: :followed, source: :followed
 
+ #フォローする
   def follow(user_id)
    follower.create(followed_id: user_id)
   end

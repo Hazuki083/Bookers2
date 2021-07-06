@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  
+
    def new
        @book = Book.new
    end
@@ -33,8 +33,8 @@ class UsersController < ApplicationController
      else
        render :edit
      end
-   end  
-   
+   end
+
    def follows
      user = User.find(params[:id])
      @users = user.followings
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     @users = user.followers
    end
-   
+
  private
 
   def user_params
