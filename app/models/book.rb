@@ -10,4 +10,18 @@ class Book < ApplicationRecord
   def follower(user)
     favorites.where(user_id: user.id).exists?
   end
+
+  def Book.search(search, model, how)
+       if model == "book"
+         if how == "partical"
+           Book.where("title LIKE ?", "%#{search}%")
+         elsif how == "forward"
+           Book.where("title LIKE ?", "#{search}%")
+         elsif how == "backward"
+           Book.where("ti LIKE?", "%#{search}")
+         elsif how == "match"
+           Book.where(title: search)
+         end
+       end
+   end
 end

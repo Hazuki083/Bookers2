@@ -36,5 +36,18 @@ class User < ApplicationRecord
   def following?(user)
    self.followings.include?(user)
   end
-
+  
+   def User.search(search, model, how)
+       if model == "user"
+         if how == "partical"
+           User.where("name LIKE ?", "%#{search}%")
+         elsif how == "forward"
+           User.where("name LIKE ?", "#{search}%")
+         elsif how == "backward"
+           User.where("name LIKE?", "%#{search}")
+         elsif how == "match"
+           User.where("name LIKE?", "#{search}")
+         end
+       end
+   end
 end
