@@ -18,10 +18,6 @@ class User < ApplicationRecord
   has_many :followed, class_name: "Relationship", foreign_key: :followed_id, dependent: :destroy
   has_many :followers, through: :followed, source: :follower
 
- # has_many :follower, class_name: "Relationship", foreign_key: :follower_id, dependent: :destroy
- #  has_many :followings, through: :follower, source: :follower
- #  has_many :followed, class_name: "Relationship", foreign_key: :followed_id, dependent: :destroy
- #  has_many :followers, through: :followed, source: :followed
 
  #フォローする
   def follow(user_id)
@@ -36,7 +32,7 @@ class User < ApplicationRecord
   def following?(user)
    self.followings.include?(user)
   end
-  
+
    def User.search(search, model, how)
        if model == "user"
          if how == "partical"
