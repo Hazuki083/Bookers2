@@ -40,11 +40,11 @@
                     <td><%= book.body %></td>
                   </tr>
               <% end %>
-            </tbody>
-           </table>
+             </tbody>
+            </table>
 
            <div class = "table_width">
-             <table class="table table-bordered">
+            <table class="table table-bordered">
                  <h3>投稿数の前日比・前週比</h3>
                  <tbody>
                    <tr>
@@ -56,20 +56,20 @@
 
                   <tbody>
                    <tr>
-                   　<td><%= @today_book.count %></td>
-                   　<td><%= @yesterday_book.count %></td>
-                   　<td>
-                     <% if @yesterday_book.count == 0 %>
-                      前日の投稿はありません
-                     <% else %>
-                     　<% @the_day_before = @today_book.count / @yesterday_book.count.to_f %>
-                     　<!--to_fは小数点まで表示される。-->
-                     　<%= (@the_day_before * 100).round %>
-                     <% end %>
-                    </td>
+                     <td><%= @today_book.count %></td>
+                     <td><%= @yesterday_book.count %></td>
+                     <td>
+                       <% if @yesterday_book.count == 0 %>
+                       前日の投稿はありません
+                       <% else %>
+                       <% @the_day_before = @today_book.count / @yesterday_book.count.to_f %>
+                       <!--to_fは小数点まで表示される。-->
+                       <%= (@the_day_before * 100).round %>%</td>
+                       <% end %>
+                     </td>
                    </tr>
                   </tbody>
-             </table>
+            </table>
 
             <table class="table table-bordered">
                 <tbody>
@@ -82,21 +82,48 @@
 
                 <tbody>
                    <tr>
-                   　<td><%= @this_week_book.count %></td>
-                   　<td><%= @last_week_book.count %></td>
-                   　<td>
-                     <% if @last_week_book.count == 0 %>
-                      前週の投稿はありません
-                     <% else %>
-                     　<% @the_week_before = @this_week_book.count / @last_week_book.count.to_f %>
-                     　<!--to_fは小数点まで表示される。-->
-                     　<%= (@the_week_before * 100).round %>
-                     <% end %>
+                     <td><%= @this_week_book.count %></td>
+                     <td><%= @last_week_book.count %></td>
+                     <td>
+                       <% if @last_week_book.count == 0 %>
+                       前週の投稿はありません
+                       <% else %>
+                       <% @the_week_before = @this_week_book.count / @last_week_book.count.to_f %>
+                       <!--to_fは小数点まで表示される-->
+                       <%= (@the_week_before * 100).round %>%</td>
+                       <% end %>
                     </td>
                    </tr>
-                  </tbody>
-             </table>
-            </div>
+                </tbody>
+            </table>
+
+            <table class="table table-bordered">
+              <h3>7日間分の投稿数</h3>
+                <tbody>
+                  <tr>
+                  <% @week_books.each do |day| %>
+                      <% today = Date.current
+                      days = (today-Date.parse(day[0]).to_date).to_i %>
+                      <!--差分を求めている。０は配列で日付を取るため-->
+                    <th>
+                      <% if days == 0 %>
+                      今日
+                      <% else %>
+                      <%= days %>日前
+                      <% end %>
+                      </th>
+                   <% end %>
+                  </tr>
+                </tbody>
+                <tbody>
+                  <tr>
+                      <% @week_books.each do |day| %>
+                    <th><%= day[1] %></th>
+                    <!--1は配列で件数を取るため-->
+                      <% end %>
+                  </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
