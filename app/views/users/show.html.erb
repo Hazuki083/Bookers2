@@ -101,29 +101,57 @@
               <h3>7日間分の投稿数</h3>
                 <tbody>
                   <tr>
-                  <% @week_books.each do |day| %>
-                      <% today = Date.current
-                      days = (today-Date.parse(day[0]).to_date).to_i %>
-                      <!--差分を求めている。０は配列で日付を取るため-->
+                  <% @labels.each do |label| %>
                     <th>
-                      <% if days == 0 %>
-                      今日
-                      <% else %>
-                      <%= days %>日前
-                      <% end %>
-                      </th>
-                   <% end %>
+                    <%= label %>
+                    </th>
+                  <% end %>
                   </tr>
-                </tbody>
-                <tbody>
                   <tr>
-                      <% @week_books.each do |day| %>
-                    <th><%= day[1] %></th>
+                    <% @week_books.values.each do |v| %>
+                    <td><%= v %></td>
                     <!--1は配列で件数を取るため-->
-                      <% end %>
+                    <% end %>
                   </tr>
                 </tbody>
             </table>
-        </div>
+           </div>
+      </div>
+              <canvas id="myChart" width="300" height="100"></canvas>
+                  <script>
+                  var ctx = document.getElementById("myChart").getContext('2d');
+                  var myChart = new Chart(ctx, {
+                      type: 'line',
+                      data: {
+                          labels: [<% @labels.each do |v| %>"<%= v %>",<% end %>],
+                          // labelsは横軸
+                          datasets: [{  <%# @week_books.each do |day| %>
+                              label: "投稿した本の数",
+                              data: <%#= @week_books.values %>[8,9,12]
+                                      <%# end %>,
+                              // dateは縦軸
+                              backgroundColor: 'white',
+                              borderColor: 'blue',
+                              fill: false
+                          }]
+                      },
+                      options: {
+                          title:  {
+                            display: true,
+                            text: "7日間の投稿数の比較"
+                          },
+                          scales: {
+                            y: {
+                                  min: 0,
+                                  max: 300,
+                                  ticks: {
+                                     stepSize: 10
+                                  }
+                                }
+                          }
+                      }
+                  });
+                  </script>
+
     </div>
-</div>
+  </div>

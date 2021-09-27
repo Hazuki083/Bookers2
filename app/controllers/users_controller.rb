@@ -22,6 +22,19 @@ class UsersController < ApplicationController
        @this_week_book = @books.created_this_week
        @last_week_book = @books.created_last_week
        @week_books =  @books.created_week
+
+       today = Date.current
+       @labels = []
+       @week_books.each do |day|
+         ##<!--差分を求めている。０は配列で日付を取るため-->
+         days = (today-Date.parse(day[0]).to_date).to_i
+        @labels << if days == 0
+           "今日"
+         else
+          "#{days}日前"
+         end
+       end
+       #@labels ["2日前", "1日前", "今日"]
    end
 
    def edit
