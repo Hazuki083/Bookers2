@@ -26,15 +26,11 @@ class UsersController < ApplicationController
        today = Date.current
        @labels = []
        @week_books.each do |day|
-         ##<!--差分を求めている。０は配列で日付を取るため-->
+         #差分を求めている。０は配列で日付を取るため
          days = (today-Date.parse(day[0]).to_date).to_i
-        @labels << if days == 0
-           "今日"
-         else
-          "#{days}日前"
-         end
-       end
+        @labels << ((days == 0)?  "今日": "#{days}日前")
        #@labels ["2日前", "1日前", "今日"]
+       end
    end
 
    def edit
@@ -60,14 +56,13 @@ class UsersController < ApplicationController
    end
 
    def followers
-    user = User.find(params[:id])
-    @users = user.followers
+     user = User.find(params[:id])
+     @users = user.followers
    end
 
- private
+  private
 
   def user_params
       params.require(:user).permit(:name, :profile_image, :introduction)
   end
-
 end
