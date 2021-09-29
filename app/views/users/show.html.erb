@@ -2,7 +2,7 @@
       <!--ここから下が右側へ-->
   <div class="container px-5 px-sm-0">
     <div class="row">
-        <div class="col-md-3">
+      <div class="col-md-3">
               <%= render "users/userinfo", user: @user %>
               <%= render "books/newbook", book: @book %>
               <% if @book.errors.any? %>
@@ -12,39 +12,39 @@
                 <% end %>
                 <% end %>
         </div>
-        <div class="col-md-8 offset-md-1">
-            <h2>Books</h2>
-            <table class="table table-hover table-inverse">
-             <thead>
-                 <tr>
-                   <th></th>
-                   <th>Title</th>
-                   <th>Opinion</th>
-                   <th colspan="3"></th>
-                 </tr>
-             </thead>
-             <tbody>
-               <tr>
-                <% @books.each do |book| %>
-                  <tr>
-                    <td>
-                      <%= link_to user_path(book.user.id) do %>
-                        <%= attachment_image_tag book.user, :profile_image, :fill, 50, 50,fallback: "no_image.jpg" %>
-                      <% end %>
-                    </td>
-                    <td>
-                      <%= link_to book_path(book.id) do %>
-                        <%= book.title %>
-                      <% end %>
-                    </td>
-                    <td><%= book.body %></td>
-                  </tr>
-                <% end %>
-             </tbody>
-            </table>
-          </div>
-        </div>
-          <div class = "table_width">
+      <div class="col-md-8 offset-md-1">
+        <h2>Books</h2>
+        <table class="table table-hover table-inverse">
+         <thead>
+             <tr>
+               <th></th>
+               <th>Title</th>
+               <th>Opinion</th>
+               <th colspan="3"></th>
+             </tr>
+         </thead>
+         <tbody>
+           <tr>
+            <% @books.each do |book| %>
+              <tr>
+                <td>
+                  <%= link_to user_path(book.user.id) do %>
+                    <%= attachment_image_tag book.user, :profile_image, :fill, 50, 50,fallback: "no_image.jpg" %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to book_path(book.id) do %>
+                    <%= book.title %>
+                  <% end %>
+                </td>
+                <td><%= book.body %></td>
+              </tr>
+            <% end %>
+         </tbody>
+        </table>
+      </div>
+    </div>
+    <div class = "table_width">
             <table class="table table-bordered">
                  <h3>投稿数の前日比・前週比</h3>
                  <tbody>
@@ -115,41 +115,55 @@
                     <% end %>
                   </tr>
                 </tbody>
-
             </table>
             <canvas id="myChart" width="300" height="100"></canvas>
-                  <script>
-                  var ctx = document.getElementById("myChart").getContext('2d');
-                  var myChart = new Chart(ctx, {
-                      type: 'line',
-                      data: {
-                          labels: [<% @labels.each do |v| %>"<%= v %>",<% end %>],
-                          // labelsは横軸。文字列では取り出せない
-                          datasets: [{  <%# @week_books.each do |day| %>
-                              label: "投稿した本の数",
-                              data: <%= @week_books.values %>,
-                              // dateは縦軸
-                              backgroundColor: 'white',
-                              borderColor: 'blue',
-                              fill: false
-                          }]
-                      },
-                      options: {
-                          title:  {
-                            display: true,
-                            text: "7日間の投稿数の比較",
-                          },
-                          scales: {
-                            y: {
-                                  min: 0,
-                                  max: 10,
-                                  ticks: {
-                                   stepSize: 1
-                                  }
-                                }
-                          }
-                      }
-                  });
-                  </script>
           </div>
+      <%= form_with url: user_search_path(@user), method: :get, local: true do |f| %>
+      <%= f.date_field :created_at %>
+      <%= f.submit '検索', class: 'btn btn-primary' %>
+      <% end %>
+
+      <div id="search_result">
+
+              <% if @search_book.present? %>
+                <%= render 'search', search_book: @search_book %>
+              <% end %>
+            </div>
   </div>
+
+<script>
+  $(function() {
+    var ctx = document.getElementById("myChart").getContext('2d');
+  
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [<% @labels.each do |v| %>"<%= v %>",<% end %>],
+        // labelsは横軸。文字列では取り出せない
+        datasets: [{  <%# @week_books.each do |day| %>
+          label: "投稿した本の数",
+          data: <%= @week_books.values %>,
+          // dateは縦軸
+          backgroundColor: 'white',
+          borderColor: 'blue',
+          fill: false
+        }]
+      },
+      options: {
+        title:  {
+          display: true,
+          text: "7日間の投稿数の比較",
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              suggestedMin: 0,
+              suggestedMax: 10,
+            }
+          }]
+        }
+      }
+    });
+  })
+</script>
