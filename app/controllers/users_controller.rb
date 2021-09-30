@@ -16,7 +16,7 @@ class UsersController < ApplicationController
        @user = User.find(params[:id])
        @books = @user.books.all
        @book = Book.new
-       # bookmodelで定義したscope名
+       # bookmodelで定義したscope名　２箇所で使いたいから共通メソッドにした
        show_books
    end
 
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
            @search_book = @books.where!(["created_at LIKE ?", "#{create_at}%"]).count
        end
        show_books
-       render :show
+    #   render :show 非同期通信のため消す
    end
 
    def edit
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
 
   private
 
-  def show_books
+  def show_books   #共通メソッド作成
     @today_book = @books.created_today
     @yesterday_book = @books.created_yesterday
     @this_week_book = @books.created_this_week

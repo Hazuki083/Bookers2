@@ -118,7 +118,8 @@
             </table>
             <canvas id="myChart" width="300" height="100"></canvas>
           </div>
-      <%= form_with url: user_search_path(@user), method: :get, local: true do |f| %>
+          <!--local: trueは非同期実装のため外した-->
+      <%= form_with url: user_search_path(@user), method: :get do |f| %>
       <%= f.date_field :created_at %>
       <%= f.submit '検索', class: 'btn btn-primary' %>
       <% end %>
@@ -134,7 +135,7 @@
 <script>
   $(function() {
     var ctx = document.getElementById("myChart").getContext('2d');
-  
+
     var myChart = new Chart(ctx, {
       type: 'line',
       data: {
