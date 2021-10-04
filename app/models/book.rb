@@ -7,6 +7,7 @@ class Book < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
 
+
   def follower(user)
     favorites.where(user_id: user.id).exists?
   end
@@ -34,4 +35,11 @@ class Book < ApplicationRecord
    # scope :created_this_week, -> { where(created_at: 6.day.beginning_of_day..Time.zone.now.end_of_day) }
    # scope :created_last_week, -> { where(created_at: 2.week.ago.beginning_of_day..1.week.ago.end_of_day) }
   scope :created_week, -> { where(created_at: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day).group("DATE(created_at)").select("DATE(created_at)").count }
+
+
+#いいねランキング
+ def self.this_week
+  Book.joins(:favorites).where(favorites: { created_at:　0.days.ago.prev_week..0.days.ago.prev_week(:sunday)}).group(:id).order("count(*) desc")
+ end
+
 end

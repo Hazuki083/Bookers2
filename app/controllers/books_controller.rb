@@ -5,8 +5,13 @@ class BooksController < ApplicationController
     @user = current_user
     @book = Book.new
     @books = Book.all
+    @books = Book.includes(:favorite_users).sort {|a,b| b.favorites_users.size <=> a.favorites_users.size}
   end
-
+  
+  def weekly_rank
+    @ranks = Book.this_week 
+  end
+  
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
@@ -52,6 +57,8 @@ class BooksController < ApplicationController
       redirect_to books_path
     end
   end
+  
+  
 
   private
 
