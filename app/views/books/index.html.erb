@@ -25,7 +25,8 @@
              </thead>
              <tbody>
                <tr>
-                <% @books.each do |book| %>
+
+                <% @ranks.each do |book| %>
                   <tr id="book_<%= book.id %>">
                     <td>
                       <%= link_to user_path(book.user.id) do %>
@@ -41,6 +42,7 @@
                     <td class="favorite-btn"><%= render "favorites/favorite", book: book %></td>
                   </tr>
               <% end %>
+
             </tbody>
            </table>
         </div>

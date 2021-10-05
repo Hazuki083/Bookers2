@@ -5,13 +5,12 @@ class BooksController < ApplicationController
     @user = current_user
     @book = Book.new
     @books = Book.all
-    @books = Book.includes(:favorite_users).sort {|a,b| b.favorites_users.size <=> a.favorites_users.size}
+    @ranks = Book.find(Favorite.group(:book_id).order('count(book_id) desc').limit(10).pluck(:book_id))
+    #groupで記事の番号(book_id)が同じものに分ける
+    #'count(book_id) desc'で順位
+    
   end
-  
-  def weekly_rank
-    @ranks = Book.this_week 
-  end
-  
+
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
@@ -57,8 +56,8 @@ class BooksController < ApplicationController
       redirect_to books_path
     end
   end
-  
-  
+
+
 
   private
 
