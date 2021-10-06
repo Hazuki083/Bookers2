@@ -5,10 +5,12 @@ class BooksController < ApplicationController
     @user = current_user
     @book = Book.new
     @books = Book.all
-    @ranks = Book.find(Favorite.group(:book_id).order('count(book_id) desc').limit(10).pluck(:book_id))
+    @ranks = Book.find(Favorite.group(:book_id).where(created_at: Time.current.all_week).order('count(book_id) desc').limit(10).pluck(:book_id))
     #groupで記事の番号(book_id)が同じものに分ける
+    # time current で期間指定
     #'count(book_id) desc'で順位
-    
+    #pluck を入れることによりfavoriteモデルを探しに行くのを阻止
+
   end
 
   def create
