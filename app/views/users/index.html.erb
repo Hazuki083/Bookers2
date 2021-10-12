@@ -18,7 +18,7 @@
                    </tr>
                </thead>
                <tbody>
-                 <%= link_to "グループ作成する", user_groups_path(@user.id) %>
+                 <%= link_to "グループ作成する", new_user_group_path(@user.id) %>
                  |グループ一覧
                   <% @users.each do |user| %>
                     <tr>

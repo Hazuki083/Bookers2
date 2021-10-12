@@ -3,6 +3,7 @@ class GroupsController < ApplicationController
   def new
     @group = Group.new
     @group.users << current_user
+
   end
 
   def index
@@ -23,11 +24,11 @@ class GroupsController < ApplicationController
       render :new
     end
   end
-  
+
   private
-  
+
   def group_params
-    params.requie(:group).permit(:note, user_id:[])
+    params.requie(:group).permit(:name, :image, :introduction)
   end
 
 end
