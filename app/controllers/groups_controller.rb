@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.all
+    @groups = Group.all.order(updated_at: :desc)
   end
 
   def edit
@@ -19,7 +19,8 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     if @group.save
-      redirect_to root_path, notice: 'グループを作成しました'
+      flash[:notice] = "グループを作成しました"
+       redirect_to user_path(@user.id)
     else
       render :new
     end
