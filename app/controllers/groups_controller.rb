@@ -16,14 +16,20 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(group_params)
-    if @group.save
-      flash[:notice] = "グループを作成しました"
-       redirect_to user_path(@user.id)
+    if Group.create(group_params)
+      redirect_to user_groups_path(@user.id), notice: 'グループを作成しました'
     else
       render :new
     end
   end
+  #   @group = Group.new(group_params)
+  #   if @group.save
+  #     flash[:notice] = "グループを作成しました"
+  #     redirect_to user_path(@user.id)
+  #   else
+  #     render :new
+  #   end
+  # end
 
   private
 

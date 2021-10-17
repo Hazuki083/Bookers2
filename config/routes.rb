@@ -20,8 +20,6 @@ Rails.application.routes.draw do
       member do
           get :follows, :followers
         end
-     resources :groups, only: [:new, :index, :create, :edit, :update] do
-     post 'groups/', to: 'groups#create'
-    end
+     resources :groups, only: [:new, :index, :create, :edit, :update] 
   end
  end
