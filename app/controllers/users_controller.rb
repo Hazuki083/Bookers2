@@ -23,7 +23,6 @@ class UsersController < ApplicationController
 
    def search
        @user = User.find(params[:user_id])
-
        @books = @user.books.all
        @book = Book.new
        if params[:created_at] == ""
